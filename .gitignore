@@ -1,0 +1,26 @@
+# Entorno virtual de Python
+venv/
+*.pyc
+*.pyo
+__pycache__/
+
+# Archivos de configuración de entorno
+.env
+*.env
+
+# Archivos de logs
+*.log
+
+# Archivos de Docker
+*.pid
+docker-compose.override.yml
+
+# Archivos del sistema operativo
+.DS_Store
+Thumbs.db
+
+# Archivos de IDEs
+.vscode/
+.idea/
+*.swp
+telegram-bot.tar
