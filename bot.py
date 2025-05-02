@@ -13,7 +13,7 @@ load_dotenv()
 
 BOT_TOKEN = os.getenv('BOT_TOKEN')
 
-WSDL_URL = 'https://servicios1.afip.gov.ar/wsfev1/service.asmx?WSDL'
+WSFEV_WSDL_URL = 'https://servicios1.afip.gov.ar/wsfev1/service.asmx?WSDL'
 PADRON_WSDL_URL = 'https://awshomo.afip.gov.ar/sr-padron/webservices/personaServiceA5?WSDL'
 
 context = ssl.create_default_context()
@@ -29,12 +29,12 @@ adapter.init_poolmanager(connections=10, maxsize=10, ssl_context=context)
 
 transport = Transport(session=session)
 
-soap_client = Client(WSDL_URL, transport=transport)
+soap_client_wsfev = Client(WSFEV_WSDL_URL, transport=transport)
 soap_client_padron = Client(PADRON_WSDL_URL, transport=transport)
 
-def consultar_estado_afip():
+def consultar_estado_wsfev():
     try:
-        response = soap_client.service.FEDummy()
+        response = soap_client_wsfev.service.FEDummy()
         resultado = response
         return (
             f"🧾 Estado del servicio ARCA:\n"
@@ -74,7 +74,7 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 # /facturacion
 async def facturacion(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    estado_afip = consultar_estado_afip()
+    estado_afip = consultar_estado_wsfev()
     await update.message.reply_text(estado_afip)
 
 # /padron
@@ -84,7 +84,7 @@ async def padron(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 #/todos
 async def todos(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    estado_afip = consultar_estado_afip()
+    estado_afip = consultar_estado_wsfev()
     estado_padron = consultar_estado_padron()
     await update.message.reply_text(
         f"Estado del servicio de Facturacion de ARCA:\n{estado_afip}\n\n"
