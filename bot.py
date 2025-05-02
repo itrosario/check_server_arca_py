@@ -14,7 +14,7 @@ load_dotenv()
 BOT_TOKEN = os.getenv('BOT_TOKEN')
 
 WSFEV_WSDL_URL = 'https://servicios1.afip.gov.ar/wsfev1/service.asmx?WSDL'
-PADRON_WSDL_URL = 'https://awshomo.afip.gov.ar/sr-padron/webservices/personaServiceA5?WSDL'
+PADRON_WSDL_URL = 'https://aws.afip.gov.ar/sr-padron/webservices/personaServiceA5?WSDL'
 
 context = ssl.create_default_context()
 context.set_ciphers("DEFAULT:@SECLEVEL=1")
