@@ -107,22 +107,34 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 # /facturacion
 async def facturacion(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    estado_afip = consultar_estado_wsfev()
-    await update.message.reply_text(estado_afip)
-    
+    try:
+        estado_afip = consultar_estado_wsfev()
+        await update.message.reply_text(estado_afip)
+    except Exception as e:
+        await update.message.reply_text(f"⚠️ Error al consultar ARCA: {str(e)}")
+
 # /facturacion Exportacion
 async def facturacionExportacion(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    estado_exportacion = consultar_estado_wsfexv()
-    await update.message.reply_text(estado_exportacion)
+    try:
+        estado_exportacion = consultar_estado_wsfexv()
+        await update.message.reply_text(estado_exportacion)
+    except Exception as e:
+        await update.message.reply_text(f"⚠️ Error al consultar ARCA: {str(e)}")
 
 # /padron
 async def padron(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    estado_padron = consultar_estado_padron()
-    await update.message.reply_text(estado_padron)
+    try:
+        estado_padron = consultar_estado_padron()
+        await update.message.reply_text(estado_padron)
+    except Exception as e:
+        await update.message.reply_text(f"⚠️ Error al consultar el servicio del padrón: {str(e)}")
 
 async def padronA4(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    estado_padron_a4 = consultar_estado_padronA4()
-    await update.message.reply_text(estado_padron_a4)
+    try:
+        estado_padron_a4 = consultar_estado_padronA4()
+        await update.message.reply_text(estado_padron_a4)
+    except Exception as e:
+        await update.message.reply_text(f"⚠️ Error al consultar el servicio del padrón A4: {str(e)}")
 
 #/todos
 async def todos(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -150,6 +162,6 @@ def main():
     app.add_handler(CommandHandler("todos", todos))
 
     app.run_polling()
-    
+
 if __name__ == '__main__':
     main()
